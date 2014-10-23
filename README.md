@@ -2,6 +2,8 @@
 
 In order to improve something you have to measure it! This helps you measure performance of your Capistrano deployments by appending performance reports after each Capistrano execution
 
+Works with **Capistrano 2** and **Capistrano 3**
+
 ## Installation
 
 Add this line to your application's Gemfile:
