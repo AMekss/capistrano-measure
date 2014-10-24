@@ -6,7 +6,7 @@ module Capistrano
           @measure_adapter ||= Capistrano::Measure::Adapter.new
         end
 
-        def insert_measuer_tasks
+        def insert_measure_tasks
           Rake.application.tasks.each do |current_task|
             before(current_task, :"bm_#{current_task}_before_hook") do
               measure_adapter.before_task(current_task)
@@ -21,7 +21,7 @@ module Capistrano
         def invoke_task(task_string)
           name, _ = parse_task_string(task_string)
 
-          insert_measuer_tasks if top_level_tasks.first == name
+          insert_measure_tasks if top_level_tasks.first == name
           super(task_string)
           measure_adapter.print_report if top_level_tasks.last == name
         end
