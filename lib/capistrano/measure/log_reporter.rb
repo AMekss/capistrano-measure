@@ -4,11 +4,16 @@ require 'logger'
 module Capistrano
   module Measure
     class LogReporter
-      ALERT_TRASHOLD = 60
-      WARNING_TRASHOLD = 30
+
+      attr_reader :alert_threshold, :warning_threshold
+
+      DEFALUT_ALERT_THRESHOLD = 60
+      DEFAULT_WARNING_THRESHOLD = 30
 
       def initialize(logger=nil)
         @logger = logger || ::Logger.new(STDOUT)
+        @alert_threshold = fetch :alert_threshold, DEFALUT_ALERT_THRESHOLD
+        @warning_threshold = fetch :warning_threshold, DEFAULT_WARNING_THRESHOLD
       end
 
       def render(events)
@@ -36,7 +41,7 @@ module Capistrano
 
       def colorize_time(time_spent)
         return if time_spent.nil?
-        color = (time_spent > ALERT_TRASHOLD ? :red : (time_spent > WARNING_TRASHOLD ? :yellow : :green))
+        color = (time_spent > alert_threshold ? :red : (time_spent > warning_threshold ? :yellow : :green))
         "#{time_spent}s".send(color)
       end
 
