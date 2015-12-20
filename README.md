@@ -85,6 +85,14 @@ It will append every capistrano execution with similar report
     I, [2014-10-23T18:10:31.386225 #14352]  INFO -- : deploy 104s
     I, [2014-10-23T18:10:31.386246 #14352]  INFO -- : ==========================================================
 
+### Settings
+You could change threshold time to change the results duration's color.
+
+```ruby
+set :alert_threshold, 10  # default 60 sec
+set :warning_threshold, 5 # default 30 sec
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/capistrano-measure/fork )
