@@ -1,4 +1,6 @@
 # Capistrano::Measure - deployment speed measure tool
+[![Gem Version](https://badge.fury.io/rb/capistrano-measure.svg)](https://badge.fury.io/rb/capistrano-measure)
+[![Build Status](https://travis-ci.org/AMekss/capistrano-measure.svg?branch=master)](https://travis-ci.org/AMekss/capistrano-measure)
 
 In order to improve something you have to measure it! This helps you measure performance of your Capistrano deployments by appending performance reports after each Capistrano execution
 
