@@ -1,4 +1,4 @@
-require 'colorize'
+require 'colorized_string'
 require 'logger'
 
 module Capistrano
@@ -20,7 +20,7 @@ module Capistrano
         return if events.to_a.empty?
 
         log_sepertor
-        log "  Performance Report".green
+        log ColorizedString["  Performance Report"].green
         log_sepertor
 
         events.each do |event|
@@ -32,7 +32,7 @@ module Capistrano
       private
 
       def log_sepertor
-        log "=========================================================="
+        log "=" * 60
       end
 
       def log(text)
@@ -41,10 +41,12 @@ module Capistrano
 
       def colorize_time(time_spent)
         return if time_spent.nil?
-        color = (time_spent > alert_threshold ? :red : (time_spent > warning_threshold ? :yellow : :green))
-        "#{time_spent}s".send(color)
+        ColorizedString["#{time_spent}s"].colorize(color(time_spent))
       end
 
+      def color(time_spent)
+        (time_spent > alert_threshold ? :red : (time_spent > warning_threshold ? :yellow : :green))
+      end
     end
   end
 end

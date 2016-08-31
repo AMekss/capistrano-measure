@@ -13,9 +13,24 @@ describe Capistrano::Measure::LogReporter do
       times.each do |elapsed_time|
         it "should render line with time in #{color} when elapsed time eq #{elapsed_time}" do
           subject.render([LogItem.new(0, 'test', elapsed_time)])
-          colorized_time = "#{elapsed_time}s".send(color)
+          colorized_time = ColorizedString["#{elapsed_time}s"].colorize(color)
 
           expect(logger.to_s).to include("test #{colorized_time}\n")
+        end
+      end
+    end
+
+    context "with changed thresholds" do
+      let(:config) { { warning_threshold: 20, alert_threshold: 30 } }
+
+      {green: [0, 20], yellow: [21, 30], red: [31, 100]}.each do |color, times|
+        times.each do |elapsed_time|
+          it "should render line with time in #{color} when elapsed time eq #{elapsed_time}" do
+            subject.render([LogItem.new(0, 'test', elapsed_time)])
+            colorized_time = ColorizedString["#{elapsed_time}s"].colorize(color)
+
+            expect(logger.to_s).to include("test #{colorized_time}\n")
+          end
         end
       end
     end
