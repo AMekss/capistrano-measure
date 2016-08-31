@@ -3,7 +3,7 @@ module Capistrano
     module Integration
       module Capistrano3
         def measure_adapter
-          @measure_adapter ||= Capistrano::Measure::Adapter.new
+          @measure_adapter ||= Capistrano::Measure::Adapter.new(::Logger.new(STDOUT), ::Capistrano::Configuration.env)
         end
 
         def insert_measure_tasks

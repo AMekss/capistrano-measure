@@ -10,10 +10,10 @@ module Capistrano
       DEFALUT_ALERT_THRESHOLD = 60
       DEFAULT_WARNING_THRESHOLD = 30
 
-      def initialize(logger=nil)
-        @logger = logger || ::Logger.new(STDOUT)
-        @alert_threshold = fetch :alert_threshold, DEFALUT_ALERT_THRESHOLD
-        @warning_threshold = fetch :warning_threshold, DEFAULT_WARNING_THRESHOLD
+      def initialize(logger, config)
+        @logger = logger
+        @alert_threshold = config.fetch(:alert_threshold, DEFALUT_ALERT_THRESHOLD)
+        @warning_threshold = config.fetch(:warning_threshold, DEFAULT_WARNING_THRESHOLD)
       end
 
       def render(events)

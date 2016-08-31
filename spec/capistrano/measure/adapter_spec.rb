@@ -5,7 +5,8 @@ require 'capistrano/measure/adapter'
 
 describe Capistrano::Measure::Adapter do
   let(:logger) { ::StringLogger.new }
-  subject { Capistrano::Measure::Adapter.new(logger) }
+  let(:config) { {} }
+  subject { Capistrano::Measure::Adapter.new(logger, config) }
 
   it "end-to-end test" do
     subject.before_task('root_task')

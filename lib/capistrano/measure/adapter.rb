@@ -8,8 +8,9 @@ module Capistrano
         nil
       end
 
-      def initialize(logger = nil)
+      def initialize(logger, config)
         @logger = logger
+        @config = config
       end
 
       def before_task(task_name)
@@ -26,10 +27,10 @@ module Capistrano
 
       private
 
-      attr_reader :logger
+      attr_reader :logger, :config
 
       def log_reporter
-        @log_reporter ||= Capistrano::Measure::LogReporter.new(logger)
+        @log_reporter ||= Capistrano::Measure::LogReporter.new(logger, config)
       end
 
       def timer

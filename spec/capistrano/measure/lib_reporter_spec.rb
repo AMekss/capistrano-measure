@@ -5,12 +5,8 @@ LogItem = Struct.new(:indent, :name, :elapsed_time)
 
 describe Capistrano::Measure::LogReporter do
   let(:logger) { ::StringLogger.new }
-  subject { Capistrano::Measure::LogReporter.new(logger) }
-
-  it "should be able to create with default logger" do
-    expect(::Logger).to receive(:new).with(STDOUT)
-    Capistrano::Measure::LogReporter.new
-  end
+  let(:config) { {} }
+  subject { Capistrano::Measure::LogReporter.new(logger, config) }
 
   describe "#render" do
     {green: [0, 30], yellow: [31, 60], red: [61, 100]}.each do |color, times|

@@ -1,5 +1,5 @@
 Capistrano::Configuration.instance(:must_exist).load do |config|
-  adapter = Capistrano::Measure::Adapter.new(logger)
+  adapter = Capistrano::Measure::Adapter.new(logger, config)
 
   on :before do
     adapter.before_task(current_task.fully_qualified_name)
