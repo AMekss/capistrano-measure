@@ -1,4 +1,4 @@
-require 'colored'
+require 'colorize'
 require 'logger'
 
 module Capistrano
