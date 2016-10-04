@@ -23,6 +23,27 @@ describe Capistrano::Measure::Adapter do
     expect(logger.to_s).not_to be_empty
   end
 
+  it "doesn't rise any errors by default" do
+    subject.before_task('root_task')
+    subject.after_task('sub_task')
+
+    subject.print_report
+
+    expect(logger.to_s).to include("Capistrano::Measure plugin encountered an error during performance evaluation")
+  end
+
+  it "raises an error in debug mode (and interrupts the deployment)" do
+    config[:measure_error_handling] = :raise
+
+    expect {
+      subject.before_task('root_task')
+      subject.after_task('sub_task')
+
+      subject.print_report
+    }.to raise_error(::Capistrano::Measure::Error)
+
+  end
+
   describe "::capistrano_version" do
     subject { Capistrano::Measure::Adapter }
 
