@@ -42,7 +42,7 @@ module Capistrano
       end
 
       def report_events
-        raise 'Performance measure is not completed' unless @open_events.empty?
+        raise ::Capistrano::Measure::Error, "Performance evaluation is not yet completed, as there are events still open: #{@open_events.map(&:name).join(', ')}" unless @open_events.empty?
         return to_enum(__callee__) unless block_given?
 
         (events + [Event.new]).each_cons(2) do |event, next_event|
@@ -55,7 +55,7 @@ module Capistrano
       def close_event(event_name)
         event = Event.new(event_name, :stop, Time.now, @indent-1)
         open_event = @open_events.last
-        raise "You're trying to stop unstarted event" unless event.eq?(open_event)
+        raise ::Capistrano::Measure::Error, "Cannot estimate time for event `#{event_name}`" unless event.eq?(open_event)
 
         event.elapsed_time = (event.time - open_event.time).to_i
         event
