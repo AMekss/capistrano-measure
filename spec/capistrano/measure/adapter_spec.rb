@@ -20,7 +20,10 @@ describe Capistrano::Measure::Adapter do
 
     subject.print_report
 
-    expect(logger.to_s).not_to be_empty
+    expect(logger.to_s).to include("Performance Report")
+    expect(logger.to_s).to include("root_task")
+    expect(logger.to_s).to include("..sub_task")
+    expect(logger.to_s).to include("....sub_task1")
   end
 
   it "doesn't rise any errors by default" do
