@@ -91,8 +91,9 @@ It will append every capistrano execution with similar report
 You could change threshold time to change the results duration's color.
 
 ```ruby
-set :alert_threshold, 10  # default 60 sec
-set :warning_threshold, 5 # default 30 sec
+set :alert_threshold, 10              # default 60 sec
+set :warning_threshold, 5             # default 30 sec
+set :measure_error_handling, :raise   # default :silent
 ```
 
 ## Contributing

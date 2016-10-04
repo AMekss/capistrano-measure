@@ -19,17 +19,28 @@ module Capistrano
       def render(events)
         return if events.to_a.empty?
 
-        log_sepertor
-        log ColorizedString["  Performance Report"].green
-        log_sepertor
-
-        events.each do |event|
-          log "#{'..' * event.indent}#{event.name} #{colorize_time(event.elapsed_time)}"
+        with_layout do
+          events.each do |event|
+            log "#{'..' * event.indent}#{event.name} #{colorize_time(event.elapsed_time)}"
+          end
         end
-        log_sepertor
+      end
+
+      def render_error(message)
+        with_layout do
+          @logger.error message
+        end
       end
 
       private
+
+      def with_layout
+        log_sepertor
+        log ColorizedString["  Performance Report"].green
+        log_sepertor
+        yield
+        log_sepertor
+      end
 
       def log_sepertor
         log "=" * 60
