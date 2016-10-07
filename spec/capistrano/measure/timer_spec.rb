@@ -1,8 +1,7 @@
-require 'spec_helper'
 require 'capistrano/measure/error'
 require 'capistrano/measure/timer'
 
-describe Capistrano::Measure::Timer do
+RSpec.describe Capistrano::Measure::Timer do
   describe "#start" do
     it "should increase events array" do
       expect(subject.events.size).to eq 0

@@ -1,9 +1,8 @@
-require 'spec_helper'
 require 'capistrano/measure/log_reporter'
 
 LogItem = Struct.new(:indent, :name, :elapsed_time)
 
-describe Capistrano::Measure::LogReporter do
+RSpec.describe Capistrano::Measure::LogReporter do
   let(:logger) { ::StringLogger.new }
   let(:config) { {} }
   subject { Capistrano::Measure::LogReporter.new(logger, config) }

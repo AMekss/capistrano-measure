@@ -1,9 +1,8 @@
-require 'spec_helper'
 require 'capistrano/measure/timer'
 require 'capistrano/measure/log_reporter'
 require 'capistrano/measure/adapter'
 
-describe Capistrano::Measure::Adapter do
+RSpec.describe Capistrano::Measure::Adapter do
   let(:logger) { ::StringLogger.new }
   let(:config) { {} }
   subject { Capistrano::Measure::Adapter.new(logger, config) }
